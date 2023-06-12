@@ -18,8 +18,14 @@ variable "sns_topic_arn" {
 }
 
 variable "sns_kms_master_key_id" {
-  description = "The ARN of the KMS key to use to encrypt the SNS topic. Will use the default AWS/SNS key if not provided."
-  default     = "alias/aws/sns"
+  description = "The ARN of the KMS key to use to encrypt the SNS topic. Will create a new CMK if not provided."
+  default     = null
+  type        = string
+}
+
+variable "sns_kms_master_key_alias" {
+  description = "The alias of the KMS key to use to encrypt the SNS topic if no key is provided."
+  default     = "sns/cloudtrail-alerts"
   type        = string
 }
 
