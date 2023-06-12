@@ -84,13 +84,13 @@ No outputs.
 
 - resource.aws_cloudwatch_log_metric_filter.main (main.tf#24)
 - resource.aws_cloudwatch_metric_alarm.main (main.tf#38)
-- resource.aws_kms_alias.main (main.tf#69)
+- resource.aws_kms_alias.main (main.tf#71)
 - resource.aws_kms_key.main (main.tf#59)
-- resource.aws_sns_topic.main (main.tf#108)
-- resource.awscc_chatbot_slack_channel_configuration.main (main.tf#118)
+- resource.aws_sns_topic.main (main.tf#110)
+- resource.awscc_chatbot_slack_channel_configuration.main (main.tf#120)
 - data source.aws_caller_identity.current (main.tf#18)
 - data source.aws_cloudwatch_log_group.cloudtrail (main.tf#20)
-- data source.aws_iam_policy_document.kms (main.tf#76)
+- data source.aws_iam_policy_document.kms (main.tf#78)
 
 # Examples
 ### Complete

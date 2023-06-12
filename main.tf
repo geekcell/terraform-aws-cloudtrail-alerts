@@ -59,9 +59,11 @@ resource "aws_cloudwatch_metric_alarm" "main" {
 resource "aws_kms_key" "main" {
   count = var.sns_kms_master_key_id == null ? 1 : 0
 
-  description             = "KMS key for CloudTrail alerts SNS topic."
+  description = "KMS key for CloudTrail alerts SNS topic."
+  policy      = data.aws_iam_policy_document.kms[0].json
+
   deletion_window_in_days = 7
-  policy                  = data.aws_iam_policy_document.kms[0].json
+  enable_key_rotation     = true
 
   tags = var.tags
 }
