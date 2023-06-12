@@ -64,7 +64,8 @@ manually in the AWS Console.
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix that will added to created resources. | `string` | n/a | yes |
 | <a name="input_slack_channel_id"></a> [slack\_channel\_id](#input\_slack\_channel\_id) | The ID of the Slack channel to send alerts to. | `string` | `null` | no |
 | <a name="input_slack_workspace_id"></a> [slack\_workspace\_id](#input\_slack\_workspace\_id) | The ID of the Slack workspace to send alerts to. | `string` | `null` | no |
-| <a name="input_sns_kms_master_key_id"></a> [sns\_kms\_master\_key\_id](#input\_sns\_kms\_master\_key\_id) | The ARN of the KMS key to use to encrypt the SNS topic. Will use the default AWS/SNS key if not provided. | `string` | `"alias/aws/sns"` | no |
+| <a name="input_sns_kms_master_key_alias"></a> [sns\_kms\_master\_key\_alias](#input\_sns\_kms\_master\_key\_alias) | The alias of the KMS key to use to encrypt the SNS topic if no key is provided. | `string` | `"sns/cloudtrail-alerts"` | no |
+| <a name="input_sns_kms_master_key_id"></a> [sns\_kms\_master\_key\_id](#input\_sns\_kms\_master\_key\_id) | The ARN of the KMS key to use to encrypt the SNS topic. Will create a new CMK if not provided. | `string` | `null` | no |
 | <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | Use an existing SNS topic to send alerts to. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to the created resources. | `map(any)` | `{}` | no |
 
@@ -81,11 +82,15 @@ No outputs.
 
 ## Resources
 
-- resource.aws_cloudwatch_log_metric_filter.main (main.tf#33)
-- resource.aws_cloudwatch_metric_alarm.main (main.tf#47)
-- resource.aws_sns_topic.main (main.tf#24)
-- resource.awscc_chatbot_slack_channel_configuration.main (main.tf#68)
-- data source.aws_cloudwatch_log_group.cloudtrail (main.tf#18)
+- resource.aws_cloudwatch_log_metric_filter.main (main.tf#24)
+- resource.aws_cloudwatch_metric_alarm.main (main.tf#38)
+- resource.aws_kms_alias.main (main.tf#69)
+- resource.aws_kms_key.main (main.tf#59)
+- resource.aws_sns_topic.main (main.tf#108)
+- resource.awscc_chatbot_slack_channel_configuration.main (main.tf#118)
+- data source.aws_caller_identity.current (main.tf#18)
+- data source.aws_cloudwatch_log_group.cloudtrail (main.tf#20)
+- data source.aws_iam_policy_document.kms (main.tf#76)
 
 # Examples
 ### Complete
