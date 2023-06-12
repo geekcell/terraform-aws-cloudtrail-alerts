@@ -64,7 +64,7 @@ manually in the AWS Console.
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix that will added to created resources. | `string` | n/a | yes |
 | <a name="input_slack_channel_id"></a> [slack\_channel\_id](#input\_slack\_channel\_id) | The ID of the Slack channel to send alerts to. | `string` | `null` | no |
 | <a name="input_slack_workspace_id"></a> [slack\_workspace\_id](#input\_slack\_workspace\_id) | The ID of the Slack workspace to send alerts to. | `string` | `null` | no |
-| <a name="input_sns_kms_master_key_alias"></a> [sns\_kms\_master\_key\_alias](#input\_sns\_kms\_master\_key\_alias) | The alias of the KMS key to use to encrypt the SNS topic if no key is provided. | `string` | `"sns/cloudtrail-alerts"` | no |
+| <a name="input_sns_kms_master_key_alias"></a> [sns\_kms\_master\_key\_alias](#input\_sns\_kms\_master\_key\_alias) | The alias of the KMS key to use to encrypt the SNS topic if no key is provided. | `string` | `"alias/sns/cloudtrail-alerts"` | no |
 | <a name="input_sns_kms_master_key_id"></a> [sns\_kms\_master\_key\_id](#input\_sns\_kms\_master\_key\_id) | The ARN of the KMS key to use to encrypt the SNS topic. Will create a new CMK if not provided. | `string` | `null` | no |
 | <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | Use an existing SNS topic to send alerts to. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to the created resources. | `map(any)` | `{}` | no |
