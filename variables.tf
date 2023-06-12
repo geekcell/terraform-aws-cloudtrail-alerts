@@ -25,7 +25,7 @@ variable "sns_kms_master_key_id" {
 
 variable "sns_kms_master_key_alias" {
   description = "The alias of the KMS key to use to encrypt the SNS topic if no key is provided."
-  default     = "sns/cloudtrail-alerts"
+  default     = "alias/sns/cloudtrail-alerts"
   type        = string
 }
 
