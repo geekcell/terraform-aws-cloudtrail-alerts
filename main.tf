@@ -22,7 +22,7 @@ data "aws_cloudwatch_log_group" "cloudtrail" {
 }
 
 resource "aws_cloudwatch_log_metric_filter" "main" {
-  for_each = { for rule in local.alerts : rule.name => rule }
+  for_each = {for rule in local.alerts : rule.name => rule}
 
   name           = each.value.name
   pattern        = each.value.pattern
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_log_metric_filter" "main" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "main" {
-  for_each = { for rule in local.alerts : rule.name => rule }
+  for_each = {for rule in local.alerts : rule.name => rule}
 
   alarm_name  = "${each.value.name}Alarm"
   metric_name = "${each.value.name}Count"
@@ -49,7 +49,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   statistic           = each.value.statistic
   alarm_description   = each.value.description
 
-  alarm_actions      = [coalesce(var.sns_topic_arn, aws_sns_topic.main[0].arn)]
+  alarm_actions      = [coalesce(var.sns_topic_arn, try(aws_sns_topic.main[0].arn, null))]
   treat_missing_data = "notBreaching"
 
   tags = var.tags
@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "kms" {
     actions   = ["kms:*"]
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
       ]
@@ -94,7 +94,7 @@ data "aws_iam_policy_document" "kms" {
   statement {
     sid       = "CloudwatchUsage"
     resources = ["*"]
-    actions = [
+    actions   = [
       "kms:Decrypt",
       "kms:GenerateDataKey*"
     ]
@@ -134,9 +134,9 @@ module "chatbot_role" {
 
   source = "github.com/geekcell/terraform-aws-iam-role?ref=v1"
 
-  name        = "${var.prefix}-chatbot-cloudtrail-alerts"
-  description = "Role for AWS Chatbot to read CloudWatch alerts."
-  policy_arns = ["arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"]
+  name         = "${var.prefix}-chatbot-cloudtrail-alerts"
+  description  = "Role for AWS Chatbot to read CloudWatch alerts."
+  policy_arns  = ["arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"]
   assume_roles = {
     "Service" : {
       identifiers = ["chatbot.amazonaws.com"]
