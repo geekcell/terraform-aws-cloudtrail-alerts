@@ -49,7 +49,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   statistic           = each.value.statistic
   alarm_description   = each.value.description
 
-  alarm_actions      = [coalesce(var.sns_topic_arn, aws_sns_topic.main[0].arn)]
+  alarm_actions      = [coalesce(var.sns_topic_arn, try(aws_sns_topic.main[0].arn, null))]
   treat_missing_data = "notBreaching"
 
   tags = var.tags
